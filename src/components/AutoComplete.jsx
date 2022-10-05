@@ -1,7 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import finnHub from "../apis/finnHub";
+import { Context } from "../Context";
 
 export const AutoComplete = () => {
+
+  const {addStock} = useContext(Context);
 
   const [search, setSearch] = useState("");
   const [results, setResults] = useState([]);
@@ -10,10 +13,20 @@ export const AutoComplete = () => {
     const dropdownClass = search ? "show" : null;
 
     return (
-      <ul className={`dropdown-menu ${dropdownClass}`}>
+      <ul style={{
+        height: "500px",
+        overflowY: "scroll",
+        overflowX: "hidden",
+        cursor: "pointer"
+      }} className={`dropdown-menu ${dropdownClass}`}>
         {results.map((result) => {
           return (
-            <li className="dropdown-item">{result.description}({result.symbol})</li>
+            <li key={result.symbol} className="dropdown-item" onClick={() => 
+              {
+                addStock(result.symbol)
+                setSearch("")
+              }
+            }>{result.description}({result.symbol})</li>
           )
         })}
       </ul>
@@ -61,7 +74,6 @@ export const AutoComplete = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         ></input>
-
         <label htmlFor="search">Search</label>
         {renderDropdown()}
       </div>

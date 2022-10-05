@@ -1,18 +1,26 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import finnHub from "../apis/finnHub";
 import {BsFillCaretUpFill, BsFillCaretDownFill} from "react-icons/bs";
+import { Context } from "../Context";
+import { useNavigate } from "react-router-dom";
 
 export const StockList = () => {
 
+  const {watchList, removeStock} = useContext(Context);
+
   const [stock, setStock] = useState([]);
-  const [watchList, setWatchList] = useState(["GOOGL", "MSFT", "AMZN"]);
 
   const changeColor = (change) => {
     return change > 0 ? "success" : "danger"
   }
   const renderIcon = (change) => {
     return change > 0 ? <BsFillCaretUpFill/> : <BsFillCaretDownFill/>
+  }
+
+  const navigate = useNavigate();
+
+  const handleStockSelect = (symbol) => {
+    navigate(`detail/${symbol}`)
   }
 
   useEffect(() => {
@@ -49,8 +57,8 @@ export const StockList = () => {
   fetchData()
 
   return () => (isMounted = false)
-  
-  }, [])
+
+  }, [watchList])
 
   return (
     <div>
@@ -70,7 +78,7 @@ export const StockList = () => {
         <tbody>
           {stock.map((stockData) => {
             return (
-              <tr className="table-row" key={stockData.symbol}>
+              <tr className="table-row" key={stockData.symbol} onClick={() => handleStockSelect(stockData.symbol)} style={{cursor: "pointer"}}>
                 <th scope="row">{stockData.symbol}</th>
                 <td>{stockData.data.c}</td>
                 <td className={`text-${changeColor(stockData.data.d)}`}>{stockData.data.d}{renderIcon(stockData.data.d)}</td>
