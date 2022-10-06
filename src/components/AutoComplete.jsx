@@ -49,12 +49,9 @@ export const AutoComplete = () => {
             q: search,
           },
         });
-      
-        console.log(response.data.result);
-      if(isMounted) {
-        setResults(response.data.result);
-      }
-        
+        if (isMounted) {
+          setResults(response.data.result);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -66,7 +63,7 @@ export const AutoComplete = () => {
     }
 
     return () => (isMounted = false);
-  }, [search])
+  }, [search]);
 
   return (
     <div className="w-50 p-5 rounded mx-auto">

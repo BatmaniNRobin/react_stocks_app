@@ -14,7 +14,7 @@ export const StockList = () => {
     return change > 0 ? "success" : "danger"
   }
   const renderIcon = (change) => {
-    return change > 0 ? <BsFillCaretUpFill/> : <BsFillCaretDownFill/>
+    return change > 0 ? <BsFillCaretUpFill /> : <BsFillCaretDownFill />;
   }
 
   const navigate = useNavigate();
@@ -97,7 +97,18 @@ export const StockList = () => {
                 <td>{stockData.data.h}</td>
                 <td>{stockData.data.l}</td>
                 <td>{stockData.data.o}</td>
-                <td>{stockData.data.pc}</td>
+                <td>
+                  {stockData.data.pc}
+                  <button
+                    className="btn btn-danger btn-sm ml-3 d-inline-block delete-button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      removeStock(stockData.symbol);
+                    }}
+                  >
+                    Remove
+                  </button>
+                </td>
               </tr>
             );
           })}
