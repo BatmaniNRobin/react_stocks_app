@@ -63,7 +63,7 @@ export const StockList = () => {
   return (
     <div>
       <table className="table hover mt-5">
-        <thead style={{color: "rgb(79,89,102)"}}>
+        <thead style={{ color: "rgb(79,89,102)" }}>
           <tr>
             <th scope="col">Name</th>
             <th scope="col">Last</th>
@@ -78,20 +78,31 @@ export const StockList = () => {
         <tbody>
           {stock.map((stockData) => {
             return (
-              <tr className="table-row" key={stockData.symbol} onClick={() => handleStockSelect(stockData.symbol)} style={{cursor: "pointer"}}>
+              <tr
+                className="table-row"
+                key={stockData.symbol}
+                onClick={() => handleStockSelect(stockData.symbol)}
+                style={{ cursor: "pointer" }}
+              >
                 <th scope="row">{stockData.symbol}</th>
                 <td>{stockData.data.c}</td>
-                <td className={`text-${changeColor(stockData.data.d)}`}>{stockData.data.d}{renderIcon(stockData.data.d)}</td>
-                <td className={`text-${changeColor(stockData.data.dp)}`}>{stockData.data.dp}{renderIcon(stockData.data.dp)}</td>
+                <td className={`text-${changeColor(stockData.data.d)}`}>
+                  {stockData.data.d}
+                  {renderIcon(stockData.data.d)}
+                </td>
+                <td className={`text-${changeColor(stockData.data.dp)}`}>
+                  {stockData.data.dp}
+                  {renderIcon(stockData.data.dp)}
+                </td>
                 <td>{stockData.data.h}</td>
                 <td>{stockData.data.l}</td>
                 <td>{stockData.data.o}</td>
                 <td>{stockData.data.pc}</td>
               </tr>
-            )
+            );
           })}
         </tbody>
       </table>
     </div>
-  )
+  );
 }

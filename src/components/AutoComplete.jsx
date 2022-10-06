@@ -13,24 +13,31 @@ export const AutoComplete = () => {
     const dropdownClass = search ? "show" : null;
 
     return (
-      <ul style={{
-        height: "500px",
-        overflowY: "scroll",
-        overflowX: "hidden",
-        cursor: "pointer"
-      }} className={`dropdown-menu ${dropdownClass}`}>
+      <ul
+        style={{
+          height: "500px",
+          overflowY: "scroll",
+          overflowX: "hidden",
+          cursor: "pointer",
+        }}
+        className={`dropdown-menu ${dropdownClass}`}
+      >
         {results.map((result) => {
           return (
-            <li key={result.symbol} className="dropdown-item" onClick={() => 
-              {
-                addStock(result.symbol)
-                setSearch("")
-              }
-            }>{result.description}({result.symbol})</li>
-          )
+            <li
+              key={result.symbol}
+              className="dropdown-item"
+              onClick={() => {
+                addStock(result.symbol);
+                setSearch("");
+              }}
+            >
+              {result.description}({result.symbol})
+            </li>
+          );
         })}
       </ul>
-    )
+    );
   }
 
   useEffect(() => {
